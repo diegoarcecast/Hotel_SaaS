@@ -1,4 +1,6 @@
+using Hotel_SaaS.Infrastructure.Infrastructure;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
@@ -13,6 +15,10 @@ namespace Hotel_SaaS.API
             builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer(); // Descubridor
             builder.Services.AddSwaggerGen();           // Generador Swagger
+
+            builder.Services.AddDbContext<HotelDbContext>(opt =>
+    opt.UseSqlServer(builder.Configuration.GetConnectionString("HotelDb")));
+
 
             var app = builder.Build();
 
